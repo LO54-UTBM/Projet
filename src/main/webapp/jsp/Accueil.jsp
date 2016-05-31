@@ -107,7 +107,6 @@
                                     Sorry ! Date Format Error
                         </div>
                         </c:if>
-                        <c:out value="${requestScope.dateError}"></c:out>
                         <c:forEach items="${requestScope.allCourses}" var="course">
                             <div class="col-sm-6 col-md-3">
                                 <div class="thumbnail">
