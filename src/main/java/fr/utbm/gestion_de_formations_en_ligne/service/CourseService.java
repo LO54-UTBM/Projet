@@ -33,7 +33,7 @@ public class CourseService {
         return hcd.getAllCoursesAtLocationHibernate(location);
     }
 
-    public List<Course> getAllCoursesAtDateService(Date date) {
+    public List<Course> getAllCoursesAtDateService(Date date) throws Exception {
         HibernateCourseDAO hcd = new HibernateCourseDAO();
         return hcd.getAllCoursesAtDateHibernate(date);
     }
