@@ -7,6 +7,9 @@ package fr.utbm.gestion_de_formations_en_ligne.service;
 
 import fr.utbm.gestion_de_formations_en_ligne.entity.Client;
 import fr.utbm.gestion_de_formations_en_ligne.repository.HibernateClientDAO;
+import fr.utbm.gestion_de_formations_en_ligne.repository.JTAClientDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,8 +18,14 @@ import fr.utbm.gestion_de_formations_en_ligne.repository.HibernateClientDAO;
 public class ClientService {
 
     public void insertClientService(Client client) {
-        HibernateClientDAO hcd = new HibernateClientDAO();
-        hcd.insertClientHibernate(client);
+        //HibernateClientDAO hcd = new HibernateClientDAO();
+        //hcd.insertClientHibernate(client);
+        JTAClientDAO jcd = new JTAClientDAO();
+        try {
+            jcd.insertClientJta(client);
+        } catch (Exception ex) {
+            Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
