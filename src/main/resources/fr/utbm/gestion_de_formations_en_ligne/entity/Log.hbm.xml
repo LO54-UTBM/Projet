@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 avr. 2016 22:24:01 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="fr.utbm.gestion_de_formations_en_ligne.entity.Log" table="LOG" schema="ORACLE" optimistic-lock="version">
+        <id name="dates" type="date">
+            <column name="DATES"/>
+        </id>
+        <property name="student" type="string">
+            <column name="STUDENT" length="56" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

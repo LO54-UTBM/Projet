@@ -6,4 +6,5 @@
   <table-filter match-name="CLIENT"/>
   <table-filter match-name="LOCATION"/>
   <table-filter match-name="COURSE_SESSION"/>
+  <table-filter match-name="LOG"/>
 </hibernate-reverse-engineering>

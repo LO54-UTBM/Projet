@@ -12,5 +12,6 @@
     <mapping resource="fr/utbm/gestion_de_formations_en_ligne/entity/Course.hbm.xml"/>
     <mapping resource="fr/utbm/gestion_de_formations_en_ligne/entity/Location.hbm.xml"/>
     <mapping resource="fr/utbm/gestion_de_formations_en_ligne/entity/CourseSession.hbm.xml"/>
+    <mapping resource="fr/utbm/gestion_de_formations_en_ligne/entity/Log.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
