@@ -92,8 +92,13 @@
                     <div class="panel-body" style="max-height: 10;overflow-y: auto">
                         <c:choose>
                             <c:when test="${requestScope.ok=='ok'}">
-                                <div class="alert alert-success text-center" id="success-alert">
+                                <div class="alert alert-success text-center" id="alert">
                             Registration completed successfully !
+                                 </div>
+                            </c:when> 
+                            <c:when test="${requestScope.ok=='ko'}">
+                                <div class="alert alert-danger text-center" id="alert">
+                            Sorry something went wrong !
                                  </div>
                             </c:when> 
                         </c:choose> 
@@ -136,8 +141,8 @@
 
         <script type="text/javascript">
             window.setTimeout(function () {
-                $("#success-alert").slideUp(500, function () {
-                    $("#success-alert").hide();
+                $("#alert").slideUp(500, function () {
+                    $("#alert").hide();
                 });
             }, 2000);
         </script>  

@@ -17,14 +17,15 @@ import java.util.logging.Logger;
  */
 public class ClientService {
 
-    public void insertClientService(Client client) {
-        //HibernateClientDAO hcd = new HibernateClientDAO();
-        //hcd.insertClientHibernate(client);
-        JTAClientDAO jcd = new JTAClientDAO();
+    public void insertClientService(Client client) throws Exception {
+        HibernateClientDAO hcd = new HibernateClientDAO();
+        hcd.insertClientHibernate(client);
+        
         try {
-            jcd.insertClientJta(client);
+            hcd.insertClientHibernate(client);
         } catch (Exception ex) {
             Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
     }
 

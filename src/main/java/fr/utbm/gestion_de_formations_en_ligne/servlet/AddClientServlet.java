@@ -6,14 +6,12 @@
 package fr.utbm.gestion_de_formations_en_ligne.servlet;
 
 import fr.utbm.gestion_de_formations_en_ligne.entity.Client;
-import fr.utbm.gestion_de_formations_en_ligne.entity.Course;
 import fr.utbm.gestion_de_formations_en_ligne.entity.CourseSession;
-import fr.utbm.gestion_de_formations_en_ligne.service.ClientService;
-import fr.utbm.gestion_de_formations_en_ligne.service.CourseService;
 import fr.utbm.gestion_de_formations_en_ligne.service.CourseSessionService;
-import fr.utbm.gestion_de_formations_en_ligne.service.LocationService;
+import fr.utbm.gestion_de_formations_en_ligne.service.JTAClientService;
 import java.io.IOException;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,9 +46,18 @@ public class AddClientServlet extends HttpServlet {
         c.setFirstname(request.getParameter("firstName"));
         c.setLastname(request.getParameter("lastName"));
         c.setPhone(request.getParameter("phone"));
-        ClientService cse = new ClientService();
-        cse.insertClientService(c);
-        request.setAttribute("ok", "ok");
+//        ClientService cse = new ClientService();
+        JTAClientService jcs = new JTAClientService();
+        
+        try {
+//            cse.insertClientService(c);
+            jcs.insertClientService(c);
+            request.setAttribute("ok", "ok");
+        } catch (Exception ex) {
+            Logger.getLogger(AddClientServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("ok", "ko");
+        }
+        
       request.getRequestDispatcher("Courses").forward(request, response);
     }
 

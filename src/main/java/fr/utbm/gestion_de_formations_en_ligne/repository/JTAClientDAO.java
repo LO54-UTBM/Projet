@@ -8,54 +8,53 @@ package fr.utbm.gestion_de_formations_en_ligne.repository;
 import fr.utbm.gestion_de_formations_en_ligne.entity.Client;
 import fr.utbm.gestion_de_formations_en_ligne.entity.Log;
 import fr.utbm.gestion_de_formations_en_ligne.service.ClientService;
-import fr.utbm.gestion_de_formations_en_ligne.util.HibernateUtil;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.hibernate.Transaction;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.Transaction;
-import org.hibernate.Session;
+import javax.sql.XAConnection;
+import javax.transaction.xa.*;
 
-/**
- *
- * @author Ali
- */
 public class JTAClientDAO {
 
-    public void insertClientJta(Client client) throws Exception {
+    public void insertClientJta(Client client,XAConnection xaCon) throws Exception {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = null;
+        
+        
+        XAResource xaRes = null;
+        Xid xid = null;
+        Connection con;
+        int ret;
 
         try {
-            System.out.println("test0 ");
-           tx = session.beginTransaction();
             
-            System.out.println("test0.5 ");
-            Log log = new Log();
-            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            Date date = new Date();
-            System.out.println("test1 ");
-            log.setDates(date);
-            log.setStudent(client.getFirstname() + " " + client.getLastname());
-            System.out.println("test2 ");
-            session.persist(log);
-            System.out.println("test3 ");
+            xaRes = xaCon.getXAResource();
+            con = xaCon.getConnection();
             
-            /** Exception */
-            int x=5/0;
-            
-            session.persist(client);
-            System.out.println("test4 ");
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("test5 ");
-            Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, e);
-             tx.rollback();
+            PreparedStatement persistClient = con.prepareStatement("insert into client values (null,?,?,?,?,?,?)");
 
-        } finally {
-            session.close();
+
+            /** Exception */
+//            int x=5/0;
+
+            persistClient.setShort(1, client.getCourseSession().getId());
+            persistClient.setString(2, client.getLastname());
+             persistClient.setString(2, client.getLastname()+"fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+            persistClient.setString(3, client.getFirstname());
+            persistClient.setString(4, client.getAddress());
+            persistClient.setString(5, client.getPhone());
+            persistClient.setString(6, client.getEmail());
+
+            persistClient.executeUpdate();
+
+
+        } catch (Exception e) {
+            System.out.println("test2 ");
+            Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, e);
+            throw e ;
+
         }
     }
 }
