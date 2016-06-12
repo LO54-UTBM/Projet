@@ -20,7 +20,8 @@ import oracle.jdbc.xa.client.*;
  * @author Ali
  */
 public class JDBCConnectionDAO {
-    public static XADataSource getOracleDataSource(){
+
+    public static XADataSource getOracleDataSource() {
         Properties props = new Properties();
         FileInputStream fis = null;
         OracleXADataSource oracleDS = null;
@@ -36,9 +37,10 @@ public class JDBCConnectionDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  oracleDS;
+        return oracleDS;
     }
-    public static XAConnection getOracleConnection(){
+
+    public static XAConnection getOracleConnection() {
         try {
             return getOracleDataSource().getXAConnection();
         } catch (SQLException ex) {
@@ -46,5 +48,5 @@ public class JDBCConnectionDAO {
             return null;
         }
     }
-    
+
 }

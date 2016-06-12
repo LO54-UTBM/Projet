@@ -7,6 +7,7 @@ package fr.utbm.gestion_de_formations_en_ligne.servlet;
 
 import fr.utbm.gestion_de_formations_en_ligne.entity.Client;
 import fr.utbm.gestion_de_formations_en_ligne.entity.CourseSession;
+import fr.utbm.gestion_de_formations_en_ligne.service.ClientService;
 import fr.utbm.gestion_de_formations_en_ligne.service.CourseSessionService;
 import fr.utbm.gestion_de_formations_en_ligne.service.JTAClientService;
 import java.io.IOException;
@@ -17,10 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Ali
- */
 public class AddClientServlet extends HttpServlet {
 
     /**
@@ -35,10 +32,15 @@ public class AddClientServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        CourseSession cs=new CourseSession();
-        CourseSessionService css=new CourseSessionService();
-        cs=css.getCourseSessionById(Integer.parseInt(request.getParameter("id")));
-        
+        CourseSession cs = new CourseSession();
+        CourseSessionService css = new CourseSessionService();
+
+        /**
+         * pass Session ID in parameter
+         */
+        cs = css.getCourseSessionById(Integer.parseInt(request.getParameter("id")));
+
+//        Create new client
         Client c = new Client();
         c.setAddress(request.getParameter("address"));
         c.setCourseSession(cs);
@@ -46,19 +48,32 @@ public class AddClientServlet extends HttpServlet {
         c.setFirstname(request.getParameter("firstName"));
         c.setLastname(request.getParameter("lastName"));
         c.setPhone(request.getParameter("phone"));
+
+        /**
+         * Create Client using hibernate
+         */
 //        ClientService cse = new ClientService();
-        JTAClientService jcs = new JTAClientService();
-        
-        try {
+//        try {
 //            cse.insertClientService(c);
+//            request.setAttribute("ok", "ok");
+//        } catch (Exception ex) {
+//            Logger.getLogger(AddClientServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            request.setAttribute("ok", "ko");
+//        }
+        
+        /**
+         * Create Client using JTA
+         */
+        JTAClientService jcs = new JTAClientService();
+        try {
             jcs.insertClientService(c);
             request.setAttribute("ok", "ok");
         } catch (Exception ex) {
             Logger.getLogger(AddClientServlet.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("ok", "ko");
         }
-        
-      request.getRequestDispatcher("Courses").forward(request, response);
+
+        request.getRequestDispatcher("Courses").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

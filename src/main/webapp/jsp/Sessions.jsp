@@ -116,9 +116,9 @@
                                                 <blockquote class="text-center" style="font-size: 100%">
                                                     Start date :
                                                     <footer>
-                                                       <fmt:formatDate type="date" value="${courseSession.startDate}" pattern="MM-dd-yyyy"/> 
-                                                       <br/>
-                                                       <strong> in </strong> ${courseSession.location.city}
+                                                        <fmt:formatDate type="date" value="${courseSession.startDate}" pattern="MM-dd-yyyy"/> 
+                                                        <br/>
+                                                        <strong> in </strong> ${courseSession.location.city}
                                                     </footer>
                                                 </blockquote> 
                                                 <form action="Session" method="POST">
@@ -128,8 +128,8 @@
                                                     <jsp:useBean id="now" class="java.util.Date"/>
                                                     <fmt:formatDate type="date" value="${now}" var="date" pattern="yyyy-MM-dd"/>
                                                     <c:set var="date1" value="${date}"/>
-                                                   
-                                                    
+
+
                                                     <c:choose>
                                                         <c:when test="${courseSession.startDate >= date1}">
                                                             <button  class="btn btn-default btn-block" type="submit">Sign up</button>

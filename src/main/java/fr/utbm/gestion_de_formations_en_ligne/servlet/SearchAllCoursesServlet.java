@@ -1,25 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.utbm.gestion_de_formations_en_ligne.servlet;
 
 import fr.utbm.gestion_de_formations_en_ligne.entity.Course;
 import fr.utbm.gestion_de_formations_en_ligne.service.CourseService;
 import fr.utbm.gestion_de_formations_en_ligne.service.LocationService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Ali
- */
 public class SearchAllCoursesServlet extends HttpServlet {
 
     /**
@@ -34,10 +24,13 @@ public class SearchAllCoursesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+//        Get All courses
         CourseService cs = new CourseService();
         List<Course> allCourses = cs.getAllCoursesService();
         request.setAttribute("allCourses", allCourses);
 
+//        Set Servlet parameters
         LocationService ls = new LocationService();
         List<String> allLocations = ls.getAllLocationsService();
         request.setAttribute("allLocations", allLocations);

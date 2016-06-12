@@ -21,17 +21,16 @@ public class HibernateLocationDAO {
 
     public List<String> getAllLocationsHibernate() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-       List<String> listCities = new ArrayList<>();
+        List<String> listCities = new ArrayList<>();
         try {
 
             Query query = session.createQuery("from Location");
             List<Location> listLocations = query.list();
-            
+
             Iterator it = listLocations.iterator();
             while (it.hasNext()) {
 
                 Location c = (Location) it.next();
-//                System.out.println("cityyy  " +c.getCity());
                 listCities.add(c.getCity());
             }
         } catch (Exception e) {

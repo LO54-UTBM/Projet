@@ -51,7 +51,7 @@ public class JTALogDAO {
             persistLog.executeUpdate();
 
         } catch (Exception e) {
-            System.out.println("test1 ");
+            System.out.println("Log Exception ");
             Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, e);   
             throw e ;
 

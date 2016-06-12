@@ -49,19 +49,15 @@ public class HibernateCourseDAO {
         for (Course c : listCourse) {
             for (Iterator it = c.getCourseSessions().iterator(); it.hasNext();) {
                 CourseSession cs = (CourseSession) it.next();
-                System.out.println(cs.getStartDate() + "Date de cs");
-                System.out.println(date + "date param");
-
                 if (date.before(cs.getStartDate())) {
-                int count = 0;
-                    for (Course c2 : listCourseOK)
-                        if (c2.equals(c))
-                        {
+                    int count = 0;
+                    for (Course c2 : listCourseOK) {
+                        if (c2.equals(c)) {
                             count++;
-                        }   
-                    
-                    if (count == 0) 
-                    {
+                        }
+                    }
+
+                    if (count == 0) {
                         listCourseOK.add(c);
                     }
                 }
@@ -81,27 +77,20 @@ public class HibernateCourseDAO {
         for (Course c : listCourse) {
             for (Iterator it = c.getCourseSessions().iterator(); it.hasNext();) {
                 CourseSession cs = (CourseSession) it.next();
-//                System.out.println(c.getTitle() + "  " + cs.getLocation().getCity() + " city");
 
                 if (cs.getLocation().getCity().equalsIgnoreCase(location.getCity())) {
-//                    System.out.println(c.getTitle() + " added");
                     int count = 0;
-                    for (Course c2 : listCourseOK)
-                        if (c2.equals(c))
-                        {
+                    for (Course c2 : listCourseOK) {
+                        if (c2.equals(c)) {
                             count++;
-                        }   
-                    
-                    if (count == 0) 
-                    {
+                        }
+                    }
+
+                    if (count == 0) {
                         listCourseOK.add(c);
                     }
-                    
 
                 }
-//                else{
-//                    System.out.println(c.getTitle()+" not added");
-//                }
             }
         }
         return listCourseOK;
@@ -110,46 +99,41 @@ public class HibernateCourseDAO {
     public List<CourseSession> getAllCourseSessions(String code) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery("from Course as course where course.code=?");
-        query.setString(0,code);
-        Course c=(Course) query.uniqueResult();
-        List<CourseSession> list=new ArrayList<>();
+        query.setString(0, code);
+        Course c = (Course) query.uniqueResult();
+        List<CourseSession> list = new ArrayList<>();
         for (Iterator it = c.getCourseSessions().iterator(); it.hasNext();) {
-                CourseSession cs = (CourseSession) it.next();
-                list.add(cs);
+            CourseSession cs = (CourseSession) it.next();
+            list.add(cs);
         }
-        
-         int i,j;
-    List<CourseSession> tab=list;
-    
-    CourseSession temp = new CourseSession();
-     
-    i = 0;
-    while(i < tab.size())
-    {
-        for(j = tab.size()-1; j >= i+1 ; j--)
-        {
-            
-            if(tab.get(j).getStartDate().compareTo(tab.get(j-1).getStartDate()) > 0) 
-            {  
-                // echange des 2 elements
-                temp = tab.get(j);
-                tab.set(j,tab.get(j-1)) ;
-                tab.set(j-1,temp);
+
+        int i, j;
+        List<CourseSession> tab = list;
+
+        CourseSession temp = new CourseSession();
+
+        i = 0;
+        while (i < tab.size()) {
+            for (j = tab.size() - 1; j >= i + 1; j--) {
+
+                if (tab.get(j).getStartDate().compareTo(tab.get(j - 1).getStartDate()) > 0) {
+                    temp = tab.get(j);
+                    tab.set(j, tab.get(j - 1));
+                    tab.set(j - 1, temp);
+                }
             }
+            i++;
         }
-        i++;
-    }
-        
-        
+
         return tab;
-        
+
     }
 
     public Course getCourseByCode(String code) {
-       Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery("from Course as course where course.code=?");
-        query.setString(0,code);
-        Course c=(Course) query.uniqueResult();
+        query.setString(0, code);
+        Course c = (Course) query.uniqueResult();
         return c;
     }
 

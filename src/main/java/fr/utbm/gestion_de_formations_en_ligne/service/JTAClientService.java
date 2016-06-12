@@ -16,50 +16,44 @@ import java.util.logging.Logger;
 import javax.sql.XAConnection;
 import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;
-import org.hibernate.Transaction;
 
 /**
  *
  * @author Ali
  */
 public class JTAClientService {
-
     public void insertClientService(Client client) throws Exception {
-
-        Transaction tx = null;
         XAConnection xaCon;
         XAResource xaRes = null;
         Xid xid = null;
         Connection con;
-       
         int ret;
-
         try {
             xaCon = JDBCConnectionDAO.getOracleConnection();
             xaRes = xaCon.getXAResource();
             con = xaCon.getConnection();
-            
             xid = new MyXid(100, new byte[]{0x01}, new byte[]{0x02});
-           
-
-            
             /**
              * Begin Transaction
              */
             xaRes.start(xid, XAResource.TMNOFLAGS);
-
-            
-            JTALogDAO jld= new JTALogDAO();
+            /**
+             * insert log
+             */
+            JTALogDAO jld = new JTALogDAO();
             jld.insertLogJta(client, xaCon);
-            
-            
+            /**
+             * insert client
+             */
             JTAClientDAO jcd = new JTAClientDAO();
             jcd.insertClientJta(client, xaCon);
-            
-
+            /**
+             * end Transaction
+             */
             xaRes.end(xid, XAResource.TMSUCCESS);
-            
-            
+            /**
+             * Commit
+             */
             ret = xaRes.prepare(xid);
             if (ret == XAResource.XA_OK) {
                 xaRes.commit(xid, false);
@@ -68,11 +62,11 @@ public class JTAClientService {
         } catch (Exception e) {
             System.out.println("test3 ");
             Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, e);
+            /**
+             * Rollback
+             */
             xaRes.rollback(xid);
-
             throw e;
-
         }
     }
-
 }

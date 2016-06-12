@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Ali
+ * @author Eddie
  */
 public class LocationService {
 

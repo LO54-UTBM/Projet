@@ -7,13 +7,12 @@ package fr.utbm.gestion_de_formations_en_ligne.service;
 
 import fr.utbm.gestion_de_formations_en_ligne.entity.Client;
 import fr.utbm.gestion_de_formations_en_ligne.repository.HibernateClientDAO;
-import fr.utbm.gestion_de_formations_en_ligne.repository.JTAClientDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author Ali
+ * @author Eddie
  */
 public class ClientService {
 

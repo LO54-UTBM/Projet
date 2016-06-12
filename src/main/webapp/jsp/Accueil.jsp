@@ -93,24 +93,24 @@
                         <c:choose>
                             <c:when test="${requestScope.ok=='ok'}">
                                 <div class="alert alert-success text-center" id="alert">
-                            Registration completed successfully !
-                                 </div>
+                                    Registration completed successfully !
+                                </div>
                             </c:when> 
                             <c:when test="${requestScope.ok=='ko'}">
                                 <div class="alert alert-danger text-center" id="alert">
-                            Sorry something went wrong !
-                                 </div>
+                                    Sorry something went wrong !
+                                </div>
                             </c:when> 
                         </c:choose> 
                         <c:if test="${requestScope.allCourses.isEmpty()}">
-                        <div class="alert alert-danger text-center" id="" style="font-size: 10em">
-                                    Sorry ! No Courses Found 
-                        </div>
+                            <div class="alert alert-danger text-center" id="" style="font-size: 10em">
+                                Sorry ! No Courses Found 
+                            </div>
                         </c:if>
                         <c:if test="${requestScope.dateError=='dateError'}">
-                        <div class="alert alert-danger text-center" id="" style="font-size: 10em">
-                                    Sorry ! Date Format Error
-                        </div>
+                            <div class="alert alert-danger text-center" id="" style="font-size: 10em">
+                                Sorry ! Date Format Error
+                            </div>
                         </c:if>
                         <c:forEach items="${requestScope.allCourses}" var="course">
                             <div class="col-sm-6 col-md-3">

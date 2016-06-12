@@ -1,23 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.utbm.gestion_de_formations_en_ligne.servlet;
 
 import fr.utbm.gestion_de_formations_en_ligne.service.LocationService;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-/**
- *
- * @author Ali
- */
 
 public class SearchAllLocationsServlet extends HttpServlet {
 
@@ -33,12 +22,11 @@ public class SearchAllLocationsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+//        Set Servlet parameters        
         LocationService ls = new LocationService();
         List<String> allLocations = ls.getAllLocationsService();
         request.setAttribute("allLocations", allLocations);
-        /**
-         * create Locations JSP
-         */
         request.getRequestDispatcher("jsp/CourseSessions.jsp").forward(request, response);
     }
 

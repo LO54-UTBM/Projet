@@ -10,7 +10,7 @@ import fr.utbm.gestion_de_formations_en_ligne.repository.HibernateCourseSessionD
 
 /**
  *
- * @author Ali
+ * @author Eddie
  */
 public class CourseSessionService {
     public CourseSession getCourseSessionById(int id) {

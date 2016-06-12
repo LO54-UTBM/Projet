@@ -12,13 +12,13 @@ import java.util.Date;
  * @author Eddie
  */
 public class Log implements java.io.Serializable {
-    
+
     private Date dates;
     private String student;
 
-    public Log(){
+    public Log() {
     }
-    
+
     public Log(Date date, String student) {
         this.dates = date;
         this.student = student;
@@ -44,5 +44,5 @@ public class Log implements java.io.Serializable {
     public String toString() {
         return "Log{" + "date=" + dates + ", student=" + student + '}';
     }
-    
+
 }

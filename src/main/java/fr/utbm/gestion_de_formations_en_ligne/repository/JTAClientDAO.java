@@ -6,42 +6,43 @@
 package fr.utbm.gestion_de_formations_en_ligne.repository;
 
 import fr.utbm.gestion_de_formations_en_ligne.entity.Client;
-import fr.utbm.gestion_de_formations_en_ligne.entity.Log;
 import fr.utbm.gestion_de_formations_en_ligne.service.ClientService;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import org.hibernate.Transaction;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.XAConnection;
 import javax.transaction.xa.*;
 
+/**
+ *
+ * @author Ali
+ */
 public class JTAClientDAO {
 
-    public void insertClientJta(Client client,XAConnection xaCon) throws Exception {
+    public void insertClientJta(Client client, XAConnection xaCon) throws Exception {
 
-        
-        
         XAResource xaRes = null;
         Xid xid = null;
         Connection con;
         int ret;
 
         try {
-            
+
             xaRes = xaCon.getXAResource();
             con = xaCon.getConnection();
-            
+
             PreparedStatement persistClient = con.prepareStatement("insert into client values (null,?,?,?,?,?,?)");
 
-
-            /** Exception */
+            /**
+             * simulate an Exception
+             */
 //            int x=5/0;
-
             persistClient.setShort(1, client.getCourseSession().getId());
             persistClient.setString(2, client.getLastname());
-             persistClient.setString(2, client.getLastname()+"fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+            /**
+             * simulate a DataBase Exception
+             */
+//            persistClient.setString(2, client.getLastname()+"fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
             persistClient.setString(3, client.getFirstname());
             persistClient.setString(4, client.getAddress());
             persistClient.setString(5, client.getPhone());
@@ -49,11 +50,10 @@ public class JTAClientDAO {
 
             persistClient.executeUpdate();
 
-
         } catch (Exception e) {
-            System.out.println("test2 ");
+            System.out.println("Client Exception ");
             Logger.getLogger(ClientService.class.getName()).log(Level.SEVERE, null, e);
-            throw e ;
+            throw e;
 
         }
     }

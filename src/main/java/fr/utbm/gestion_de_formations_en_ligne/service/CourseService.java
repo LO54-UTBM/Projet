@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author Eddie
+ * @author Ali
  */
 public class CourseService {
 
